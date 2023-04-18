@@ -1,7 +1,7 @@
+import { useState } from "react"
 import "./ListaOpciones.css"
 
-const ListaOpciones =  ()=>{
-
+const ListaOpciones =  (props)=>{
     const equipos = [
         "Front-End",
         "Data Science",
@@ -11,21 +11,31 @@ const ListaOpciones =  ()=>{
         "Inovación y Gestión"
     ]
 
+    const mostrando = (e)=>{
+        console.log(e.target.value)
+        props.funcion(e.target.value)
+    }
+    
+
     return <div className="Lista-Opciones">
-        <label>Equipo</label>
-        <select>
-            {equipos.map( (listaEquipo,index) => <option key={index}>{listaEquipo}</option>
+        <label>Equipos</label>
+        <select 
+        value={props.valor}
+        onChange={mostrando}>
+
+            <option value="" disable defaultValue="" hidden>Seleccionar Equipo</option>
+            {equipos.map((listaEquipo,index) => <option 
+            key={index}
+            value={listaEquipo}
+           >
+                {listaEquipo}
+            </option>
             )}
         </select>
     </div>
+    
 }
 export default ListaOpciones
 
-/*
-    const fantasia = [
-        <option> font End </option>,
-        <option> Data Science </option>,
-        <option> Ux-Uix </option>,
-        <option> DevOps </option>
-    ]*/
+
 
