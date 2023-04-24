@@ -5,21 +5,28 @@ import ListaOpciones from "../ListaOpciones/Index"
 import Boton from "../Boton/Index"
 
 
-const Formulario =()=>{
+const Formulario =(props)=>{
      
     const [nombre,setNombre]= useState("") 
     const [puesto,setPuesto]= useState("")
     const [foto,setFoto]= useState("")
-    const [equipo,setEquipo] = useState("")    
+    const [equipo,setEquipo] = useState("")   
+    
+    const {registrarColaborador} = props 
+    /* props = {
+        equipos={equipos.map(array => array.titulo)}
+        registrarColaborador={registrarColaborador}
+    } */
     
     const manejarEnvio = (e)=>{
         e.preventDefault()
         const datosAenviar={
             nombre,
             puesto,
-            foto
+            foto,
+            equipo
         }
-        console.log(datosAenviar)
+        registrarColaborador(datosAenviar)       
     }       
 
     return <section className="formulario">
@@ -53,6 +60,7 @@ const Formulario =()=>{
             <ListaOpciones
             valor= {equipo}
             funcion={setEquipo}
+            equipos = {props.equipos}
             />
 
             <Boton>

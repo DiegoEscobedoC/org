@@ -1,21 +1,11 @@
 import { useState } from "react"
 import "./ListaOpciones.css"
 
-const ListaOpciones =  (props)=>{
-    const equipos = [
-        "Front-End",
-        "Data Science",
-        "Devops",
-        "Ux y Diseño",
-        "Móvil",
-        "Inovación y Gestión"
-    ]
+const ListaOpciones =  (props)=>{    
 
     const mostrando = (e)=>{
-        console.log(e.target.value)
         props.funcion(e.target.value)
-    }
-    
+    }    
 
     return <div className="Lista-Opciones">
         <label>Equipos</label>
@@ -24,7 +14,7 @@ const ListaOpciones =  (props)=>{
         onChange={mostrando}>
 
             <option value="" disable defaultValue="" hidden>Seleccionar Equipo</option>
-            {equipos.map((listaEquipo,index) => <option 
+            {props.equipos.map((listaEquipo,index) => <option 
             key={index}
             value={listaEquipo}
            >
