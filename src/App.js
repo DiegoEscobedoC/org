@@ -4,12 +4,11 @@ import Header from './componentes/header/header.js';
 import Formulario from './componentes/Formulario/Formulario';
 import MiOrg from './componentes/MiOrg/Index';
 import Equipo from './componentes/Equipo/Index';
+import Footer from './componentes/Footer/Index.jsx';
 
 function App() {
-  const [mostrarFormulario, actualizarMostrar] = useState(false)
+  const [mostrarFormulario, actualizarMostrar] = useState(true)
   const [colaboradores, setcolaboradores] = useState([])
-
-  
 
   const cambiarMostrar =()=>{
     actualizarMostrar(!mostrarFormulario)
@@ -20,26 +19,26 @@ function App() {
     setcolaboradores([...colaboradores,colaborador])
   }
 
-  console.log(registrarColaborador)
-
-
   /*
-  colaboradores = [
+ colaboradores = [
     {
       equipo: programacion
       foto: http
       nombre: Miguel
       puesto: Ux
-    },
-    {
+  },
+   {
       equipo: Front-end
       foto: http
       nombre: Ana
       puesto: Front
-    },
-    .
-    .
-    .
+  },
+    {
+      equipo: Data Science
+      foto: http
+      nombre: Rigoberto
+      puesto: Data Science
+  },
   ]
    */
 
@@ -80,16 +79,14 @@ function App() {
     colorPrimario: "#FF8A29"
   },
   ]
-  
+
   return (
     <div className="App">
       <Header />
-
       {
       mostrarFormulario && <Formulario 
         equipos={equipos.map(array => array.titulo)}
-        registrarColaborador={registrarColaborador}
-        
+        registrarColaborador={registrarColaborador}        
       />}
         
       <MiOrg funcionBoton = {cambiarMostrar} />
@@ -97,11 +94,14 @@ function App() {
       {equipos.map( info => <Equipo 
         datos={info} 
         key={info.titulo}
-        colaboradores = {colaboradores}
+        colaboradores = {colaboradores.filter( index => index.equipo=== info.titulo)}
         /> )}
+
+        <Footer/>
 
     </div>
   );
 }
 
 export default App;
+
