@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import { useState } from "react"
 import "./Formulario.css"
 import CampoTexto from "../CampoTexto"
@@ -10,7 +11,8 @@ const Formulario =(props)=>{
     const [nombre,setNombre]= useState("") 
     const [puesto,setPuesto]= useState("")
     const [foto,setFoto]= useState("")
-    const [equipo,setEquipo] = useState("")   
+    const [equipo,setEquipo] = useState("")
+    
     
     const {registrarColaborador} = props 
     /* props = {
@@ -24,9 +26,10 @@ const Formulario =(props)=>{
             nombre,
             puesto,
             foto,
-            equipo
+            equipo,
+            id: uuid()
         }
-        registrarColaborador(datosAenviar)       
+        registrarColaborador(datosAenviar)      
     }       
 
     return <section className="formulario">
