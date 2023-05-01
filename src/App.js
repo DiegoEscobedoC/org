@@ -15,80 +15,85 @@ function App() {
     id: uuid(),
     titulo: "Programación",
     colorSecundario: "#D9F7E9",
-    colorPrimario: "#57C278"
+    colorPrimario: "#57C278",
   },
   {
     id: uuid(),
     titulo: "Front-End",
     colorSecundario: "#E8F8FF",
-    colorPrimario: "#82CFFA"
+    colorPrimario: "#82CFFA",
   },
   {
     id: uuid(),
     titulo: "Data Science",
     colorSecundario: "#F0F8E2",
-    colorPrimario: "#A6D157"
+    colorPrimario: "#A6D157",
   },
   {
     id: uuid(),
     titulo: "Devops",
     colorSecundario: "#FDE7E8",
-    colorPrimario: "#E06B69"
+    colorPrimario: "#E06B69",
   },
   {
     id: uuid(),
     titulo: "Ux Diseño",
     colorSecundario: "#DB6EBF",
-    colorPrimario: "#FAE9F5"
+    colorPrimario: "#FAE9F5",
   },
   {
     id: uuid(),
     titulo: "Móvil",
     colorSecundario: "#FFF5D9",
-    colorPrimario: "#FFBA05"
+    colorPrimario: "#FFBA05",
   },
   {
     id: uuid(),
     titulo: "Innovación y Gestión",
     colorSecundario: "#FFEEDF",
-    colorPrimario: "#FF8A29"
+    colorPrimario: "#FF8A29",
   },
   ])
-  const [mostrarFormulario, actualizarMostrar] = useState(true)
+  const [mostrarFormulario, actualizarMostrar] = useState(false)
   const [colaboradores, setcolaboradores] = useState([{
     id: uuid(),
     equipo: "Front-End",
     foto: "https://github.com/harlandlohora.png",
     nombre: "Harland Lohora",
-    puesto: "Instructor"
+    puesto: "Instructor",    
+    fav: true
   },
   {
     id: uuid(),
     equipo: "Programación",
     foto: "https://github.com/genesysaluralatam.png",
     nombre: "Genesys Rondón",
-    puesto: "Desarrolladora de software e instructora"
+    puesto: "Desarrolladora de software e instructora",
+    fav: false
   },
   {
     id: uuid(),
     equipo: "Ux Diseño",
     foto: "https://github.com/JeanmarieAluraLatam.png",
     nombre: "Jeanmarie Quijada",
-    puesto: "Instructora en Alura Latam"
+    puesto: "Instructora en Alura Latam",
+    fav: false
   },
   {
     id: uuid(),
     equipo: "Programación",
     foto: "https://github.com/christianpva.png",
     nombre: "Christian Velasco",
-    puesto: "Head de Alura e Instructor"
+    puesto: "Head de Alura e Instructor",
+    fav: false
   },
   {
     id: uuid(),
     equipo: "Innovación y Gestión",
     foto: "https://github.com/JoseDarioGonzalezCha.png",
     nombre: "Jose Gonzalez",
-    puesto: "Dev FullStack"
+    puesto: "Dev FullStack",
+    fav: false
   }])
 
   /// Termina Seccion hooks---------------------------------------------------
@@ -106,7 +111,6 @@ function App() {
   // Eliminar Colaborador
   const eliminarColaborador = (id)=>{
     const nuevoArreglo = colaboradores.filter((elemento)=>{
-      console.log(elemento.id)
       return elemento.id !== id
     })
     setcolaboradores(nuevoArreglo)
@@ -121,6 +125,24 @@ function App() {
       return verificar
     })
     setEquipo(equiposActualizados)
+  }
+
+  // registrar nuevo Equipo
+
+  const registrarNuevoEquipo = (a)=>{
+    setEquipo([...equipo,a])
+  }
+
+  // Agregando y quitando favoritos
+  const favoritos = (id)=>{
+    console.log(id)
+    const colaboradorActFavoritos = colaboradores.map(verificar=>{
+      if(verificar.id === id){
+        verificar.fav = !verificar.fav
+      }
+      return verificar
+    })
+    setcolaboradores(colaboradorActFavoritos)
   }
 
   /*
@@ -152,7 +174,8 @@ function App() {
       {
       mostrarFormulario && <Formulario 
         equipos={equipo.map(array => array.titulo)}
-        registrarColaborador={registrarColaborador}        
+        registrarColaborador={registrarColaborador}  
+        registrarNuevoEquipo={registrarNuevoEquipo}      
       />}
         
       <MiOrg funcionBoton = {cambiarMostrar} />
@@ -162,7 +185,8 @@ function App() {
         key={info.titulo}
         colaboradores = {colaboradores.filter( index => index.equipo=== info.titulo)}
         eliminarColaborador= {eliminarColaborador}
-        actualizarColor={actualizarColor}
+        actualizarColor={actualizarColor}    
+        favoritos={favoritos}    
         /> )}
 
         <Footer/>

@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { useState } from "react"
 import "./Formulario.css"
-import CampoTexto from "../CampoTexto"
+import Campo from "../Campo"
 import ListaOpciones from "../ListaOpciones/Index"
 import Boton from "../Boton/Index"
 
@@ -12,9 +12,12 @@ const Formulario =(props)=>{
     const [puesto,setPuesto]= useState("")
     const [foto,setFoto]= useState("")
     const [equipo,setEquipo] = useState("")
+
+    const [titulo, setTitulo]= useState("")
+    const [colorPrimario, setcolorPrimario]= useState("")
     
     
-    const {registrarColaborador} = props 
+    const {registrarColaborador, registrarNuevoEquipo} = props 
     /* props = {
         equipos={equipos.map(array => array.titulo)}
         registrarColaborador={registrarColaborador}
@@ -27,16 +30,27 @@ const Formulario =(props)=>{
             puesto,
             foto,
             equipo,
-            id: uuid()
+            id: uuid(),
+            fav: false
         }
         registrarColaborador(datosAenviar)      
-    }       
+    }
+    
+    const envioInfoEquipo = (e)=>{
+        e.preventDefault()
+        const datosEquipo={
+            titulo:titulo,
+            colorPrimario:colorPrimario,
+            id: uuid()
+        }
+        registrarNuevoEquipo(datosEquipo)
+    }
 
     return <section className="formulario">
 
         <form onSubmit={manejarEnvio}>
             <h1>Rellena el formulario para crear el colaborador.</h1>
-            <CampoTexto 
+            <Campo 
             titulo="Nombre" 
             placeholder="Ingresar Nombre" 
             required 
@@ -44,7 +58,7 @@ const Formulario =(props)=>{
             funcion={setNombre}
             />
 
-            <CampoTexto 
+            <Campo 
             titulo="Puesto" 
             placeholder="Ingresar Puesto" 
             required
@@ -52,7 +66,7 @@ const Formulario =(props)=>{
             funcion={setPuesto}
             />
 
-            <CampoTexto 
+            <Campo 
             titulo="Foto" 
             placeholder="Ingresar enlace de foto" 
             required
@@ -69,8 +83,30 @@ const Formulario =(props)=>{
             <Boton>
                 Crear
             </Boton>
+        </form>
 
-        </form>        
+        <form onSubmit={envioInfoEquipo}>
+            <h1>Rellena el formulario para crear el Equipo.</h1>
+            <Campo 
+            titulo="Nombre del Equipo" 
+            placeholder="Ingresar Equipo" 
+            required 
+            valor={titulo}
+            funcion={setTitulo}
+            />
+
+            <Campo
+            titulo="Color del Equipo" 
+            placeholder="Ingresar Color" 
+            required
+            valor={colorPrimario}
+            funcion={setcolorPrimario}
+            tipo={"color"}
+            />
+            <Boton>
+                Crear Equipo
+            </Boton>
+        </form>    
     </section>
 }
 
